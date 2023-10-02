@@ -1,0 +1,3 @@
+As a user, I want to be able to save, access and use the website's online tools (books, creature statistics, and other various things) for my Table Top Roleplaying Game.
+As a creator for this website, I want to be able to upload my content in a simple and consise manner.
+As an admin of this website, I want to be able to easily moniter the comings and goings of the people who use my website and how often it is used.

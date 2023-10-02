@@ -1,0 +1,7 @@
+account(id, email, username, userType_ID)
+userTypes(id, name)
+books(id, name, page_number, dateAdded, authorAccount_ID, viewCount) {The website will handle displaying the books by calling upon a PDF titled with the book's ID.}
+creatureStatBlock(id, name, challengeRating, size, hitDice, strength, charisma, intelligence, wisdom, dexterity, constitution, dateAdded, authorAccount_ID, viewCount)
+savedContent(id, user_ID, typeOfContent_ID, content_ID) {A way for users to save content for later. The website will scan this database for items with their user ID and display them.}
+typeOfContent(id, nameOfContentType) {Is simple right now, with only books and stat blocks, but if more kinds of objects are added, this will streamline things.}
+sizes(id, sizeName) {D&D only has so many size types, so it's easier to store them here and not risk them being put in wrong by the creators.}

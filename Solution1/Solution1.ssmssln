@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 19.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "ttrpgContentWebsiteDatabase", "ttrpgContentWebsiteDatabase\ttrpgContentWebsiteDatabase.ssmssqlproj", "{188EF871-A17C-40DE-AE2E-DB60A70108F9}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "FirstJoins-Week6", "FirstJoins-Week6\FirstJoins-Week6.ssmssqlproj", "{AB3D8E8B-AD6B-4410-A865-1F0E2A2E39E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{188EF871-A17C-40DE-AE2E-DB60A70108F9}.Default|Default.ActiveCfg = Default
+		{AB3D8E8B-AD6B-4410-A865-1F0E2A2E39E9}.Default|Default.ActiveCfg = Default
+		{8768D6BA-DD53-4F9D-8ED6-4F0F93125E15}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D728B106-F6A6-4FEB-BCE9-2574C523D5B3}
+	EndGlobalSection
+EndGlobal
