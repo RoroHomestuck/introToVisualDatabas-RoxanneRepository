@@ -1,0 +1,45 @@
+1:
+SELECT        MIN(Rent) AS [Minimum Rent]
+FROM            Apartment
+Result- 300.00
+
+2:
+SELECT        SUM(Apartment.Sq_Ft) AS [Sum of Square Feet]
+FROM            Building INNER JOIN
+                         Apartment ON Building.Building_ID = Apartment.Building_ID
+GROUP BY Building.Building_ID
+HAVING        (Building.Building_ID = 2)
+Result- 2200
+
+3:
+SELECT        Person.First_Name AS [Tenants By Highest Rent]
+FROM            Person INNER JOIN
+                         Apartment ON Person.Person_ID = Apartment.Tenant_ID
+ORDER BY Apartment.Rent DESC
+Result- Sally
+
+4:
+SELECT        AVG(Beds) AS [Average Amount of Beds per Apartment]
+FROM            Apartment
+Result- 2
+
+5:
+SELECT        MAX(Building_ID) AS [Number of Buildings Owned]
+FROM            Building
+(Wouldn't work if Building_ID's started at an ID of 0.)
+Result- 4
+
+6:
+SELECT        COUNT(Apartment.Manager_ID) AS [Number of Apts Managed by Mark Degallier]
+FROM            Apartment INNER JOIN
+                         Person ON Apartment.Manager_ID = Person.Person_ID
+GROUP BY Person.First_Name, Person.Last_Name
+HAVING        (Person.First_Name = N'Mark') AND (Person.Last_Name = N'Degallier')
+Result- 4
+
+7:
+SELECT        Invoice_ID AS Lowest Paybacks
+FROM            Receipt
+GROUP BY Invoice_ID
+ORDER BY MIN(ReceiptAmount)
+Result- 1
