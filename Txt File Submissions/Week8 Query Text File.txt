@@ -1,0 +1,62 @@
+1:
+SELECT        Apartment.Building_ID, Building.Building_Name, Apartment.Apt_Number, Person.First_Name, Person.Last_Name
+FROM            Apartment INNER JOIN
+                         Person ON Apartment.Manager_ID = Person.Person_ID INNER JOIN
+                         Building ON Apartment.Building_ID = Building.Building_ID
+ORDER BY Building.Building_Name, Apartment.Apt_Number, Person.Last_Name, Person.First_Name
+
+2:
+SELECT        Person.Person_ID, Person.First_Name, Person.Last_Name, Building.Building_Name, Apartment.Apt_Number
+FROM            Building INNER JOIN
+                         Apartment ON Building.Building_ID = Apartment.Building_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID
+ORDER BY Person.Last_Name, Person.First_Name, Building.Building_Name, Apartment.Apt_Number
+
+3:
+SELECT        Apartment.Apt_Number, Person.Last_Name, Person.First_Name, Invoice.InvoiceID, Apartment.Building_ID, LineItem.Qty, Product.Price, Product.Description
+FROM            Apartment INNER JOIN
+                         Invoice ON Apartment.Apartment_ID = Invoice.Apartment_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID INNER JOIN
+                         LineItem ON Invoice.InvoiceID = LineItem.Invoice_ID INNER JOIN
+                         Product ON LineItem.Product_ID = Product.Product_ID
+WHERE        (Apartment.Building_ID = 1)
+ORDER BY Apartment.Apt_Number, Person.Last_Name, Person.First_Name, Invoice.InvoiceID
+
+4:
+SELECT        SUM(Receipt.ReceiptAmount) AS [Reciept Sum], Apartment.Apt_Number, Building.Building_Name, Person.First_Name, Person.Last_Name
+FROM            Apartment INNER JOIN
+                         Building ON Apartment.Building_ID = Building.Building_ID INNER JOIN
+                         Invoice ON Apartment.Apartment_ID = Invoice.Apartment_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID INNER JOIN
+                         Receipt ON Invoice.InvoiceID = Receipt.Invoice_ID
+GROUP BY Apartment.Apt_Number, Building.Building_Name, Person.First_Name, Person.Last_Name
+ORDER BY Apartment.Apt_Number
+
+5:
+SELECT        Invoice.InvoiceID, Apartment.Building_ID, Apartment.Apt_Number, Person.First_Name, Person.Last_Name, Receipt.ReceiptAmount
+FROM            Apartment INNER JOIN
+                         Invoice ON Apartment.Apartment_ID = Invoice.Apartment_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID INNER JOIN
+                         Receipt ON Invoice.InvoiceID = Receipt.Invoice_ID
+ORDER BY Person.Last_Name, Person.First_Name
+
+6:
+SELECT        Invoice.InvoiceID, Apartment.Building_ID, Apartment.Apt_Number, Person_1.First_Name AS [Manager First Name], Person_1.Last_Name AS [Manager Last Name], SUM(Receipt.ReceiptAmount) AS [Receipt Sum], 
+                         Person.First_Name AS [Tenant First Name], Person.Last_Name AS [Tenant Last Name]
+FROM            Apartment INNER JOIN
+                         Invoice ON Apartment.Apartment_ID = Invoice.Apartment_ID INNER JOIN
+                         Receipt ON Invoice.InvoiceID = Receipt.Invoice_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID INNER JOIN
+                         Person AS Person_1 ON Apartment.Manager_ID = Person_1.Person_ID
+GROUP BY Invoice.InvoiceID, Apartment.Building_ID, Apartment.Apt_Number, Person_1.First_Name, Person_1.Last_Name, Person.First_Name, Person.Last_Name
+ORDER BY [Manager Last Name], [Manager First Name]
+
+7:
+SELECT        LineItem.Product_ID, SUM(LineItem.Qty) AS Quantity, Product.Description, Product.Price
+FROM            LineItem INNER JOIN
+                         Product ON LineItem.Product_ID = Product.Product_ID INNER JOIN
+                         Invoice ON LineItem.Invoice_ID = Invoice.InvoiceID INNER JOIN
+                         Apartment ON Invoice.Apartment_ID = Apartment.Apartment_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID
+GROUP BY LineItem.Product_ID, Product.Description, Product.Price
+HAVING        (LineItem.Product_ID = 1)
