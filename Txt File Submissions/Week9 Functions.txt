@@ -1,0 +1,50 @@
+1:
+SELECT        Building.Building_Name, Apartment.Apt_Number, Person.First_Name + Person.Last_Name AS [Full Name]
+FROM            Person INNER JOIN
+                         Apartment ON Person.Person_ID = Apartment.Manager_ID INNER JOIN
+                         Building ON Apartment.Building_ID = Building.Building_ID
+ORDER BY Person.Last_Name, Person.First_Name
+
+2:
+SELECT        Person.First_Name + Person.Last_Name AS [Full Name], Address.Street_1 + Apartment.Apt_Number AS [Address], Address.City + Address.State + Address.Zip AS [Location]
+FROM            Person INNER JOIN
+                         Apartment ON Person.Person_ID = Apartment.Tenant_ID INNER JOIN
+                         Address ON Person.Address_ID = Address.Address_ID
+ORDER BY Person.Last_Name, Person.First_Name
+
+3:
+SELECT        Building.Building_Name, Apartment.Apt_Number, Apartment.Sq_Ft * 0.9 + 100 * Apartment.Baths AS [est rent]
+FROM            Building INNER JOIN
+                         Apartment ON Building.Building_ID = Apartment.Building_ID
+ORDER BY Building.Building_Name, Apartment.Apt_Number
+
+4:
+SELECT        Apartment.Sq_Ft * 0.9 + 100 * Apartment.Baths AS [est rent], Building.Building_Name, Apartment.Apt_Number, Apartment.Rent, ROUND(ABS(Apartment.Rent - (Apartment.Sq_Ft * 0.9 + 100 * Apartment.Baths)) 
+                         / (Apartment.Rent + (Apartment.Sq_Ft * 0.9 + 100 * Apartment.Baths)) / 2 * 100,2) AS [% Diff]
+FROM            Building INNER JOIN
+                         Apartment ON Building.Building_ID = Apartment.Building_ID
+ORDER BY Apartment.Apt_Number, Building.Building_Name
+
+5:
+SELECT        Invoice.InvoiceID, Invoice.InvoiceDate, Receipt.ReceiptAmount, SUM(LineItem.Qty * Product.Price) AS [Invoice Total], ABS(LineItem.Qty * Product.Price - Receipt.ReceiptAmount) AS diff
+FROM            Invoice INNER JOIN
+                         Receipt ON Invoice.InvoiceID = Receipt.Invoice_ID INNER JOIN
+                         LineItem ON Invoice.InvoiceID = LineItem.Invoice_ID INNER JOIN
+                         Product ON LineItem.Product_ID = Product.Product_ID
+GROUP BY Invoice.InvoiceID, Invoice.InvoiceDate, Receipt.ReceiptAmount, ABS(LineItem.Qty * Product.Price - Receipt.ReceiptAmount)
+HAVING        (Invoice.InvoiceID = 1)
+
+6:
+SELECT        Person.First_Name, Person.Last_Name, DATEADD(week, 4, MAX(Invoice.InvoiceDate)) AS Next
+FROM            Invoice INNER JOIN
+                         Apartment ON Invoice.Apartment_ID = Apartment.Apartment_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID
+GROUP BY Person.First_Name, Person.Last_Name
+ORDER BY Person.Last_Name, Person.First_Name
+
+7:
+SELECT        Person.Last_Name, Person.First_Name, DATEDIFF(day,  GETDATE(),Invoice.InvoiceDate) AS [Days 2 Pay]
+FROM            Invoice INNER JOIN
+                         Apartment ON Invoice.Apartment_ID = Apartment.Apartment_ID INNER JOIN
+                         Person ON Apartment.Tenant_ID = Person.Person_ID
+ORDER BY Person.Last_Name, Person.First_Name
