@@ -1,0 +1,46 @@
+Update TableA SET TableB_ID = null Where(TableB_ID = '3')
+
+---
+
+SELECT        ID, TableA.*
+FROM            TableA
+WHERE        (ID = 1)
+
+---
+
+Insert INTO TableB (Title) VALUES('Blahblah')
+
+---
+
+Delete from TableB where (Title = 'Blahblah')
+
+------------------------------------------------------------------------
+
+SELECT        TableA.*, TableB.*, TableA.ID
+FROM            TableA CROSS JOIN
+                         TableB
+WHERE        (TableA.ID = 1)
+
+---
+
+SELECT        TableB.*, TableA.*
+FROM            TableA JOIN
+                         TableB ON TableA.TableB_ID = TableB.ID
+
+---
+
+SELECT        TableB.ID, TableB.Title, TableA.ID AS Expr1, TableA.TableB_ID, TableA.Name
+FROM            TableA LEFT JOIN
+                         TableB ON TableA.TableB_ID = TableB.ID
+
+---
+
+SELECT        TableB.ID, TableB.Title, TableA.ID AS Expr1, TableA.TableB_ID, TableA.Name
+FROM            TableA RIGHT OUTER JOIN
+                         TableB ON TableA.TableB_ID = TableB.ID
+
+---
+SELECT        TableB.ID, TableB.Title, TableA.ID AS Expr1, TableA.TableB_ID, TableA.Name
+FROM            TableA FULL JOIN
+                         TableB ON TableA.TableB_ID = TableB.ID
+
